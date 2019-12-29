@@ -29,4 +29,5 @@ public abstract class Client {
 		this.cin = cin;
 	}
 	abstract public void ajouterClient(Connection cn) throws SQLException;
+	abstract public void afficherClient(Connection cn) throws SQLException ;
 }

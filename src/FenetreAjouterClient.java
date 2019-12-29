@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,6 +9,7 @@ import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -17,6 +19,7 @@ import javax.swing.JTextField;
 
 public class FenetreAjouterClient extends JFrame implements MouseListener,ActionListener {
 	//Les bouttons et les textes field
+	
 	 JLabel labelNom= new JLabel("nom");
 	 JLabel labelPrenom= new JLabel("prenom");
 	 JLabel labelCin= new JLabel("cin");
@@ -28,7 +31,7 @@ public class FenetreAjouterClient extends JFrame implements MouseListener,Action
      JButton valider = new JButton("Valider");
      JTextField entrprise= new JTextField("nom entprise");
      JTextField nombre= new JTextField("0");
-     JTextField chiffreAffaires= new JTextField("0");
+     JTextField chiffreAffaires= new JTextField("0.0");
 
      Connection cn;
      JComboBox typeClient = new JComboBox( new Object[]{"Client Normal", "Client Salarie", "Client Vip"});
@@ -37,41 +40,60 @@ public class FenetreAjouterClient extends JFrame implements MouseListener,Action
 		this.cn=cn;
 		this.setExtendedState(JFrame.MAXIMIZED_BOTH); 
 		this.setTitle("Ajouter Client");
-
+		
 		this.setLocationRelativeTo(null); 
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.RED);  
-	    this.setContentPane(panel);               
-	    this.setVisible(true); 
-	    nom.setPreferredSize(new Dimension(150, 30));
-	    prenom.setPreferredSize(new Dimension(150, 30));
-	    cin.setPreferredSize(new Dimension(150, 30));
-		panel.add(nom);
-		panel.add(prenom);
-		panel.add(cin);
 		
+		panel.setBackground(Color.RED);  
+		//panel.setLayout(gl);
+		BoxLayout gl = new BoxLayout(panel, 0);
+		
+	    this.setContentPane(panel); 
+
+	    this.setVisible(true); 
+	    nom.setPreferredSize(new Dimension(100,30));
+		panel.add(nom);
+		 prenom.setPreferredSize(new Dimension(100,30));
+
+		panel.add(prenom);
+		 cin.setPreferredSize(new Dimension(100,30));
+
+		panel.add(cin);
+		typeClient.setPreferredSize(new Dimension(100,30));
+
 		panel.add(typeClient);
-		profession.setPreferredSize(new Dimension(150, 30));
-		salaire.setPreferredSize(new Dimension(150, 30));
+	
         profession.setVisible(false);
         salaire.setVisible(false);
+		profession.setPreferredSize(new Dimension(100,30));
+
 		panel.add(profession);
+		salaire.setPreferredSize(new Dimension(100,30));
+
 		panel.add(salaire);
+		entrprise.setPreferredSize(new Dimension(100,30));
+
 		panel.add(entrprise);
+		salaire.setPreferredSize(new Dimension(100,30));
+
 	    panel.add(salaire);
+		chiffreAffaires.setPreferredSize(new Dimension(100,30));
+
 	    panel.add(chiffreAffaires);
+		nombre.setPreferredSize(new Dimension(100,30));
+
 	    panel.add(nombre);
+		valider.setPreferredSize(new Dimension(100,30));
+
 	    panel.add(valider);
 	    
 	    typeClient.setSelectedItem("Client Normal");
 	    
 	    entrprise.setVisible(false);
-	    entrprise.setPreferredSize(new Dimension(150, 30));
 	    nombre.setVisible(false);
-	    nombre.setPreferredSize(new Dimension(150, 30));
 
 	    chiffreAffaires.setVisible(false);
-	    chiffreAffaires.setPreferredSize(new Dimension(150, 30));
+
 	    //Ajouter un mouseListner pour le boutton valider
 	    typeClient.addActionListener(this);  
 	    valider.addMouseListener(this); 

@@ -34,4 +34,10 @@ public class ClientSalarie extends Client {
 
 		
 	}
+
+	@Override
+	public void afficherClient(Connection cn) throws SQLException {
+		// TODO Auto-generated method stub
+		
+	}
 }
