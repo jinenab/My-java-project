@@ -38,8 +38,8 @@ public class Test {
 		    JButton bouton = new JButton("Ajouter Client");
 		    JButton bouton2 = new JButton("Ajouter Compte");
 
-		    //Accueil f=new Accueil(bouton, bouton2);
-		    FenetreAjouterClient a=new FenetreAjouterClient(cn);
+		    Accueil f=new Accueil(bouton, bouton2,cn);
+		    //FenetreAjouterClient a=new FenetreAjouterClient(cn);
        
        
 }

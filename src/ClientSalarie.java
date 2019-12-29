@@ -15,9 +15,6 @@ public class ClientSalarie extends Client {
 	public void ajouterClient(Connection cn) throws SQLException  {
 		PreparedStatement statement,st=null;
 		statement=cn.prepareStatement("INSERT INTO clientsalarie VALUES (null, ?, ?, ?,?,?)");
-		st=cn.prepareStatement("INSERT INTO client VALUES (null, ?, ?)");
-		st.setInt(1, cin);
-		st.setInt(2, 2);
 		statement.setString(1,nom); 
 		statement.setString(2,prenom); 
 		statement.setString(3,profession);
@@ -27,7 +24,6 @@ public class ClientSalarie extends Client {
 		
 		
 		try {
-			st.executeUpdate();
 			statement.executeUpdate();
 			System.out.println("client salarie  ajouté");
 
