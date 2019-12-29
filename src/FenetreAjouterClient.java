@@ -3,6 +3,8 @@ import java.awt.Dimension;
 import java.awt.HeadlessException;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.Connection;
 import java.sql.SQLException;
 
@@ -13,7 +15,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class FenetreAjouterClient extends JFrame implements ActionListener {
+public class FenetreAjouterClient extends JFrame implements MouseListener,ActionListener {
 	//Les bouttons et les textes field
 	 JLabel labelNom= new JLabel("nom");
 	 JLabel labelPrenom= new JLabel("prenom");
@@ -55,25 +57,28 @@ public class FenetreAjouterClient extends JFrame implements ActionListener {
         salaire.setVisible(false);
 		panel.add(profession);
 		panel.add(salaire);
-	    panel.add(valider);
-	    valider.addActionListener(this);
-	    typeClient.addActionListener(this);
-	    typeClient.setSelectedItem("Client Normal");
-	    
-	    
-	    entrprise.setVisible(false);
-	    nombre.setVisible(false);
-	    chiffreAffaires.setVisible(false);
-
-	    panel.add(entrprise);
+		panel.add(entrprise);
 	    panel.add(salaire);
 	    panel.add(chiffreAffaires);
-	  
+	    panel.add(nombre);
+	    panel.add(valider);
+	    
+	    typeClient.setSelectedItem("Client Normal");
+	    
+	    entrprise.setVisible(false);
+	    entrprise.setPreferredSize(new Dimension(150, 30));
+	    nombre.setVisible(false);
+	    nombre.setPreferredSize(new Dimension(150, 30));
+
+	    chiffreAffaires.setVisible(false);
+	    chiffreAffaires.setPreferredSize(new Dimension(150, 30));
+	    //Ajouter un mouseListner pour le boutton valider
+	    typeClient.addActionListener(this);  
+	    valider.addMouseListener(this); 
 	}
-	
-	
+
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void mouseClicked(MouseEvent e) {
 		System.out.println(typeClient.getSelectedItem());
 		String nomm,prenomm;int cinn;
 		nomm=nom.getText();
@@ -84,27 +89,17 @@ public class FenetreAjouterClient extends JFrame implements ActionListener {
 		System.out.println(prenomm);
 		System.out.println(cinn);
 		if(typeClient.getSelectedItem()=="Client Normal") {
-			profession.setVisible(false);
-			salaire.setVisible(false);
-			//System.out.println("Normal");
-
+		
 			ClientNormal client=new ClientNormal(nomm,prenomm,cinn);
 
-			System.out.println(client);
-			
-			/*
-			 * try {
+			 try {
 				client.ajouterClient(cn);
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 			}
-		}*/
+		}
 	
-	}
 		if(typeClient.getSelectedItem()=="Client Salarie") {
-			//System.out.println("Salarie");
-			profession.setVisible(true);
-			salaire.setVisible(true);
 			String pro;float sal=0;
 			pro=profession.getText();
 			sal=Float.parseFloat(salaire.getText());
@@ -113,16 +108,53 @@ public class FenetreAjouterClient extends JFrame implements ActionListener {
 				clientSalarie.ajouterClient(cn);
 			} catch (SQLException e1) {
 								e1.printStackTrace();
-			}
+			}		
 		}
 	if(typeClient.getSelectedItem()=="Client Vip") {
-		profession.setVisible(false);
-		salaire.setVisible(false);
-		entrprise.setVisible(true);
-	    nombre.setVisible(true);
-		chiffreAffaires.setVisible(true);
-
-	
+        ClientVip clientVip=new ClientVip(nomm,prenomm,cinn,entrprise.getText(),Integer.parseInt(nombre.getText()),Float.parseFloat(chiffreAffaires.getText()));
+        try {
+			clientVip.ajouterClient(cn);
+		} catch (SQLException e1) {
+			e1.printStackTrace();
+		}
 	}
-}
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
+	@Override
+	public void mouseReleased(MouseEvent e) {}
+	@Override
+	public void mouseEntered(MouseEvent e) {}
+	@Override
+	public void mouseExited(MouseEvent e) {}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+	    System.out.println("Select : " + e.getActionCommand());
+
+			if(typeClient.getSelectedItem()=="Client Normal") {
+				profession.setVisible(false);
+				salaire.setVisible(false);
+				
+		}
+	
+			if(typeClient.getSelectedItem()=="Client Salarie") {
+				profession.setVisible(true);
+				salaire.setVisible(true);
+				entrprise.setVisible(false);
+			    nombre.setVisible(false);
+				chiffreAffaires.setVisible(false);
+					
+		}
+			if(typeClient.getSelectedItem()=="Client Vip") {
+				profession.setVisible(false);
+				salaire.setVisible(false);
+				entrprise.setVisible(true);
+			    nombre.setVisible(true);
+				chiffreAffaires.setVisible(true);
+		        
+	}
+	}
 }

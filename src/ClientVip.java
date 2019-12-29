@@ -42,9 +42,6 @@ public class ClientVip extends Client {
 		PreparedStatement statement=null;
 		PreparedStatement st=null;
 
-		st=cn.prepareStatement("INSERT INTO client VALUES (null, ?, ?)");
-		st.setInt(1, cin);
-		st.setInt(2, 3);
 		statement=cn.prepareStatement("INSERT INTO clientvip VALUES (null,?,?,?,?,?,?)");
 		statement.setString(1,nom); 
 		statement.setString(2,prenom); 
@@ -54,7 +51,6 @@ public class ClientVip extends Client {
 		statement.setFloat(6, chiffreAffaires);
 		
 		try {
-			st.executeUpdate();
 			statement.executeUpdate();
 			System.out.println("client vip  ajouté");
 		} catch (SQLException e) {
